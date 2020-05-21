@@ -17,7 +17,7 @@ import { rootRouterConfig } from './app.routes';
     MenuComponent,
     HomeComponent,
     FooterComponent,
-    SobreComponent,
+    SobreComponent
   ],
   imports: [
     BrowserModule,
