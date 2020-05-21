@@ -10,6 +10,8 @@ import { HomeComponent } from './components/navegacao/home/home.component';
 import { FooterComponent } from './components/navegacao/footer/footer.component';
 import { SobreComponent } from './components/institucional/sobre/sobre.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { CompanyComponent } from './components/Company/company.component';
+import { EmployeePositionComponent } from './components/EmployeePosition/employee-position.component';
 
 import { rootRouterConfig } from './app.routes';
 
@@ -20,7 +22,9 @@ import { rootRouterConfig } from './app.routes';
     HomeComponent,
     FooterComponent,
     SobreComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    CompanyComponent,
+    EmployeePositionComponent
   ],
   imports: [
     BrowserModule,

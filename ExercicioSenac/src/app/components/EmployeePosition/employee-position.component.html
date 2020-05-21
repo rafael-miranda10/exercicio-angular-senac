@@ -1,0 +1,68 @@
+<div class="container main-container">
+    <h3 class="card-title"> <strong>Cadastro de Cargo</strong></h3>
+    <form role="form">
+        <div class="form-group ">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Dsecrição</label>
+                        <input type="text" class="form-control" id="descricao">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Salário</label>
+                        <input type="text" class="form-control" id="salario">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Referência</label>
+                        <input type="number" class="form-control" id="referencia">
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-dark">Limpar</button>&nbsp;&nbsp;
+            <button type="submit" class="btn btn-dark">Salvar</button>
+        </div>
+    </form>
+    <br>
+    <section>
+        <div class="row">
+                <table class="table table-striped table-hover table-dark">
+                    <thead >
+                        <tr>
+                            <td>Id</td>
+                            <td>Descrição</td>
+                            <td>Salário</td>
+                            <td>Referência</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>fornecedor.fornecedorId</td>
+                            <td> fornecedor.nome</td>
+                            <td> fornecedor.endereco</td>
+                            <td> fornecedor.contatoNome </td>
+                            <td><button class="btn btn-light">Editar</button>&nbsp;&nbsp;<button
+                                    class="btn btn-light">Deletar</button></td>
+                        </tr>
+                        <tr>
+                            <td>fornecedor.fornecedorId</td>
+                            <td> fornecedor.nome</td>
+                            <td> fornecedor.endereco</td>
+                            <td> fornecedor.contatoNome </td>
+                            <td><button class="btn btn-light">Editar</button>&nbsp;&nbsp;<button
+                                    class="btn btn-light">Deletar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </section>
+</div>
