@@ -9,6 +9,8 @@ import { MenuComponent } from './components/navegacao/menu/menu.component';
 import { HomeComponent } from './components/navegacao/home/home.component';
 import { FooterComponent } from './components/navegacao/footer/footer.component';
 import { SobreComponent } from './components/institucional/sobre/sobre.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+
 import { rootRouterConfig } from './app.routes';
 
 @NgModule({
@@ -17,7 +19,8 @@ import { rootRouterConfig } from './app.routes';
     MenuComponent,
     HomeComponent,
     FooterComponent,
-    SobreComponent
+    SobreComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
