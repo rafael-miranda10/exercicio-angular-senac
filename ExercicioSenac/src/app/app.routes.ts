@@ -1,6 +1,7 @@
-import { HomeComponent } from  './navegacao/home/home.component'; 
+import { Component } from '@angular/core';
+import { HomeComponent } from  './components/navegacao/home/home.component'; 
 import { Routes } from '@angular/router';
-import { SobreComponent } from './institucional/sobre/sobre.component';
+import { SobreComponent } from './components/institucional/sobre/sobre.component';
 
 
 export const rootRouterConfig: Routes = [
