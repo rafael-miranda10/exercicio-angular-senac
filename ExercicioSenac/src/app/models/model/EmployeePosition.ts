@@ -1,4 +1,4 @@
-export class Employee {
+export class EmployeePosition {
     id: number | null;
     description: string;
     salary: number;

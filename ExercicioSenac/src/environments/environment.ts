@@ -5,8 +5,10 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const environment = {
   production: false,
-  api: 'https://localhost:44362/',
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  api: 'https://localhost:44362/api/',
+ // api:'http://localhost:57251/api/',
+  headers: new HttpHeaders({'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*'})
 };
 
 /*

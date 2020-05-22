@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/navegacao/menu/menu.component';
@@ -14,6 +15,7 @@ import { CompanyComponent } from './components/Company/company.component';
 import { EmployeePositionComponent } from './components/EmployeePosition/employee-position.component';
 
 import { rootRouterConfig } from './app.routes';
+import { EmployeeService } from './services/employee.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,12 @@ import { rootRouterConfig } from './app.routes';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     [RouterModule.forRoot(rootRouterConfig,{ useHash:false})]
   ],
   providers: [
+    EmployeeService,
     { provide: APP_BASE_HREF, useValue: '/'}
   ],
   bootstrap: [AppComponent]

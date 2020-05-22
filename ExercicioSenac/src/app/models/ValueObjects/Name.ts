@@ -1,4 +1,4 @@
 export class Name {
-    firstName: string;
-    lastName: string;
+    public firstName: string;
+    public lastName: string;
 }

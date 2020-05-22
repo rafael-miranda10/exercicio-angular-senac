@@ -1,4 +1,4 @@
-export class Employee {
+export class RegisterEmployee {
     idCompany: number;
     employees: number[];
 }
