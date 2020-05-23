@@ -16,6 +16,7 @@ export class EmployeeComponent implements OnInit {
   public isEditMode = false;
   public formEmployee: FormGroup
   public msgsErro: string[];
+  public submitted = false;
 
   constructor(private employeeService: EmployeeService) {
     this.formEmployee = new FormGroup({
@@ -34,7 +35,7 @@ export class EmployeeComponent implements OnInit {
         number: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$"), Validators.maxLength(11)]),
       }),
       email: new FormGroup({
-        address: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$"), Validators.maxLength(11)]),
+        address: new FormControl('', [Validators.required]),
       }),
       registerCode: new FormControl(''),
       id: new FormControl(''),
@@ -49,7 +50,21 @@ export class EmployeeComponent implements OnInit {
     this.getAllEmployees();
   }
 
+  isFormValid() {
+    var formValid = false;
+    var controls = this.formEmployee.controls;
+    if (controls.name.valid && controls.address.valid && controls.email.valid && controls.document.valid) {
+      formValid = true;
+    }
+    return formValid;
+  }
   onSubmit() {
+    this.submitted = true;
+
+    if (!this.isFormValid()) {
+      return;
+    }
+
     this.msgsErro = [];
     this.employee = this.formEmployee.value;
     this.employee.document.type = 1
@@ -63,9 +78,14 @@ export class EmployeeComponent implements OnInit {
             this.employees = this.employees.filter(x => x.id !== this.employee.id);
             this.employees.push(this.employee);
             this.formEmployee.reset();
+            this.submitted = false;
             this.employees.sort((a, b) => (a.id > b.id) ? 1 : -1);
+            this.isEditMode = false;
           },
-          _error => console.log(_error)
+          _error => {
+            this.msgsErro = _error.error.errors.mensagens;
+            this.getTopPage();
+          }
         );
 
     } else {
@@ -76,6 +96,7 @@ export class EmployeeComponent implements OnInit {
             this.employee = _employee;
             this.employees.push(this.employee);
             this.formEmployee.reset();
+            this.submitted = false;
           },
           _error => {
             this.msgsErro = _error.error.errors.mensagens;
@@ -107,6 +128,7 @@ export class EmployeeComponent implements OnInit {
     this.formEmployee.get("email").get("address").setValue(_employee.email.address);
     this.formEmployee.get("registerCode").setValue(_employee.registerCode);
     this.formEmployee.get("id").setValue(_employee.id);
+    this.formEmployee
   }
 
   edit(_employee: Employee) {
