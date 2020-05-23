@@ -1,7 +1,7 @@
 import { Employee } from './../../models/model/Employee';
 import { EmployeeService } from './../../services/employee.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
@@ -17,20 +17,28 @@ export class EmployeeComponent implements OnInit {
   public formEmployee: FormGroup
   public msgsErro: string[];
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder) {
-    this.formEmployee = this.formBuilder.group({
-      "firstName": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "lastName": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "street": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "number": ["", [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$")]],
-      "neighborhood": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "city": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "state": ["", [Validators.pattern('[a-zA-Z][a-zA-Z ]+$'), Validators.required]],
-      "cpf": ["", [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$")]],
-      "email": ["", [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      "registerCode": [""],
-      "id": [""],
-    });
+  constructor(private employeeService: EmployeeService) {
+    this.formEmployee = new FormGroup({
+      name: new FormGroup({
+        firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+      }),
+      address: new FormGroup({
+        street: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+        number: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$")]),
+        neighborhood: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+        city: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+        state: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]),
+      }),
+      document: new FormGroup({
+        number: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$"), Validators.maxLength(11)]),
+      }),
+      email: new FormGroup({
+        address: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$"), Validators.maxLength(11)]),
+      }),
+      registerCode: new FormControl(''),
+      id: new FormControl(''),
+    })
 
     this.formLabel = "Cadastrar Funcionário";
     this.employee = new Employee();
@@ -43,18 +51,8 @@ export class EmployeeComponent implements OnInit {
 
   onSubmit() {
     this.msgsErro = [];
-    this.employee.registerCode = this.formEmployee.controls['registerCode'].value;
-    this.employee.name.firstName = this.formEmployee.controls['firstName'].value;
-    this.employee.name.lastName = this.formEmployee.controls['lastName'].value;
-    this.employee.address.street = this.formEmployee.controls['street'].value;
-    this.employee.address.number = this.formEmployee.controls['number'].value;
-    this.employee.address.neighborhood = this.formEmployee.controls['neighborhood'].value;
-    this.employee.address.city = this.formEmployee.controls['city'].value;
-    this.employee.address.state = this.formEmployee.controls['state'].value;
-    this.employee.document.number = this.formEmployee.controls['cpf'].value;
-    this.employee.document.type = 1;
-    this.employee.email.address = this.formEmployee.controls['email'].value;
-    this.employee.id = this.formEmployee.controls['id'].value;
+    this.employee = this.formEmployee.value;
+    this.employee.document.type = 1
 
     if (this.isEditMode) {
       this.employeeService
@@ -65,6 +63,7 @@ export class EmployeeComponent implements OnInit {
             this.employees = this.employees.filter(x => x.id !== this.employee.id);
             this.employees.push(this.employee);
             this.formEmployee.reset();
+            this.employees.sort((a, b) => (a.id > b.id) ? 1 : -1);
           },
           _error => console.log(_error)
         );
@@ -79,7 +78,6 @@ export class EmployeeComponent implements OnInit {
             this.formEmployee.reset();
           },
           _error => {
-            //console.log(_error.error.errors.mensagens);
             this.msgsErro = _error.error.errors.mensagens;
             this.getTopPage();
           }
@@ -98,15 +96,15 @@ export class EmployeeComponent implements OnInit {
   }
 
   steForm(_employee: Employee) {
-    this.formEmployee.get("firstName").setValue(_employee.name.firstName);
-    this.formEmployee.get("lastName").setValue(_employee.name.lastName);
-    this.formEmployee.get("street").setValue(_employee.address.street);
-    this.formEmployee.get("number").setValue(_employee.address.number);
-    this.formEmployee.get("neighborhood").setValue(_employee.address.neighborhood);
-    this.formEmployee.get("city").setValue(_employee.address.city);
-    this.formEmployee.get("state").setValue(_employee.address.state);
-    this.formEmployee.get("cpf").setValue(_employee.document.number);
-    this.formEmployee.get("email").setValue(_employee.email.address);
+    this.formEmployee.get("name").get("firstName").setValue(_employee.name.firstName);
+    this.formEmployee.get("name").get("lastName").setValue(_employee.name.lastName);
+    this.formEmployee.get("address").get("street").setValue(_employee.address.street);
+    this.formEmployee.get("address").get("number").setValue(_employee.address.number);
+    this.formEmployee.get("address").get("neighborhood").setValue(_employee.address.neighborhood);
+    this.formEmployee.get("address").get("city").setValue(_employee.address.city);
+    this.formEmployee.get("address").get("state").setValue(_employee.address.state);
+    this.formEmployee.get("document").get("number").setValue(_employee.document.number);
+    this.formEmployee.get("email").get("address").setValue(_employee.email.address);
     this.formEmployee.get("registerCode").setValue(_employee.registerCode);
     this.formEmployee.get("id").setValue(_employee.id);
   }
