@@ -17,6 +17,8 @@ export class EmployeeComponent implements OnInit {
   public formEmployee: FormGroup
   public msgsErro: string[];
   public submitted = false;
+  public operationSuccess = false;
+  public msgOperationSuccess: string = '';
 
   constructor(private employeeService: EmployeeService) {
     this.formEmployee = new FormGroup({
@@ -35,19 +37,21 @@ export class EmployeeComponent implements OnInit {
         number: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$"), Validators.maxLength(11)]),
       }),
       email: new FormGroup({
-        address: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required, Validators.email]),
       }),
       registerCode: new FormControl(''),
       id: new FormControl(''),
     })
 
-    this.formLabel = "Cadastrar Funcionário";
+    this.formLabel = "Cadastro de Funcionário";
     this.employee = new Employee();
     this.msgsErro = [];
   }
 
   ngOnInit() {
     this.getAllEmployees();
+    this.operationSuccess = false;
+    this.msgOperationSuccess = '';
   }
 
   isFormValid() {
@@ -81,6 +85,8 @@ export class EmployeeComponent implements OnInit {
             this.submitted = false;
             this.employees.sort((a, b) => (a.id > b.id) ? 1 : -1);
             this.isEditMode = false;
+            this.operationSuccess = true;
+            this.msgOperationSuccess = 'Funcionário editado com sucesso.';
           },
           _error => {
             this.msgsErro = _error.error.errors.mensagens;
@@ -97,6 +103,8 @@ export class EmployeeComponent implements OnInit {
             this.employees.push(this.employee);
             this.formEmployee.reset();
             this.submitted = false;
+            this.operationSuccess = true;
+            this.msgOperationSuccess = 'Funcionário cadastrado com sucesso.';
           },
           _error => {
             this.msgsErro = _error.error.errors.mensagens;
@@ -108,12 +116,13 @@ export class EmployeeComponent implements OnInit {
   }
 
   cancel() {
-    this.formLabel = "Cadastrar Funcionário";
+    this.formLabel = "Cadastro de Funcionário";
     this.isEditMode = false;
     this.employee = new Employee();
     this.steForm(this.employee);
     this.msgsErro = [];
     this.getTopPage();
+    this.operationSuccess = false;
   }
 
   steForm(_employee: Employee) {
@@ -132,7 +141,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   edit(_employee: Employee) {
-    this.formLabel = "Editar Funcionário";
+    this.formLabel = "Edição de Funcionário";
     this.isEditMode = true;
     this.employee = _employee;
     this.steForm(this.employee);
@@ -140,6 +149,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   delete(_employeeId: number, index: number) {
+    this.operationSuccess = false;
     if (confirm("Deseja realmente excluir este funcionário?")) {
       this.employeeService
         .deleteEmployee(_employeeId)
