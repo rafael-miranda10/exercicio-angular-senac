@@ -15,6 +15,7 @@ export class EmployeeComponent implements OnInit {
   public formLabel: string;
   public isEditMode = false;
   public formEmployee: FormGroup
+  public msgsErro: string[];
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder) {
     this.formEmployee = this.formBuilder.group({
@@ -33,6 +34,7 @@ export class EmployeeComponent implements OnInit {
 
     this.formLabel = "Cadastrar Funcionário";
     this.employee = new Employee();
+    this.msgsErro = [];
   }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.msgsErro = [];
     this.employee.registerCode = this.formEmployee.controls['registerCode'].value;
     this.employee.name.firstName = this.formEmployee.controls['firstName'].value;
     this.employee.name.lastName = this.formEmployee.controls['lastName'].value;
@@ -75,7 +78,11 @@ export class EmployeeComponent implements OnInit {
             this.employees.push(this.employee);
             this.formEmployee.reset();
           },
-          _error => console.log(_error)
+          _error => {
+            //console.log(_error.error.errors.mensagens);
+            this.msgsErro = _error.error.errors.mensagens;
+            this.getTopPage();
+          }
         );
     }
 
@@ -86,6 +93,8 @@ export class EmployeeComponent implements OnInit {
     this.isEditMode = false;
     this.employee = new Employee();
     this.steForm(this.employee);
+    this.msgsErro = [];
+    this.getTopPage();
   }
 
   steForm(_employee: Employee) {
@@ -107,6 +116,7 @@ export class EmployeeComponent implements OnInit {
     this.isEditMode = true;
     this.employee = _employee;
     this.steForm(this.employee);
+    this.getTopPage();
   }
 
   delete(_employeeId: number, index: number) {
@@ -116,7 +126,7 @@ export class EmployeeComponent implements OnInit {
         .subscribe(
           _employee => {
             this.employee = _employee;
-            this.employees.splice(index,1);
+            this.employees.splice(index, 1);
           },
           _error => console.log(_error)
         );
@@ -134,6 +144,8 @@ export class EmployeeComponent implements OnInit {
       );
   }
 
-
+  getTopPage() {
+    window.scroll(0, 0);
+  }
 
 }

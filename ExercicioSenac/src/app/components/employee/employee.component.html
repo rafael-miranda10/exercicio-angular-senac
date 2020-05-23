@@ -1,5 +1,9 @@
 <div class="container main-container">
     <h3 class="card-title"> <strong>{{formLabel}}</strong></h3>
+    <div class="alert alert-danger" role="alert" *ngIf="msgsErro?.length">
+        <strong>Ops! Algo não deu certo.</strong>
+        <p *ngFor="let msg of msgsErro">{{msg}}</p>
+    </div>
     <form [formGroup]="formEmployee" (ngSubmit)="onSubmit()">
         <div class="form-group ">
             <div class="row">
@@ -27,7 +31,7 @@
                         <input type="email" class="form-control" id="email" formControlName="email">
                     </div>
                 </div>
-               
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Rua</label>
@@ -55,7 +59,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label>Estado</label>
-                        <select class="browser-default custom-select"  formControlName="state">
+                        <select class="browser-default custom-select" formControlName="state">
                             <option selected>Selecione</option>
                             <option value="SP">São Paulo</option>
                             <option value="PR">Paraná</option>
