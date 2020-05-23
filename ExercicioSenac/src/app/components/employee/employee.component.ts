@@ -64,6 +64,8 @@ export class EmployeeComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.operationSuccess = false;
+    this.msgOperationSuccess = '';
 
     if (!this.isFormValid()) {
       return;
@@ -142,6 +144,7 @@ export class EmployeeComponent implements OnInit {
 
   edit(_employee: Employee) {
     this.formLabel = "Edição de Funcionário";
+    this.msgOperationSuccess = '';
     this.isEditMode = true;
     this.employee = _employee;
     this.steForm(this.employee);
@@ -158,7 +161,10 @@ export class EmployeeComponent implements OnInit {
             this.employee = _employee;
             this.employees.splice(index, 1);
           },
-          _error => console.log(_error)
+          _error => {
+            this.msgsErro = _error.error.errors.mensagens;
+            this.getTopPage();
+          }
         );
     }
   }
@@ -170,7 +176,10 @@ export class EmployeeComponent implements OnInit {
         _employees => {
           this.employees = _employees;
         },
-        _error => console.log(_error)
+        _error => {
+          this.msgsErro = _error.error.errors.mensagens;
+          this.getTopPage();
+        }
       );
   }
 

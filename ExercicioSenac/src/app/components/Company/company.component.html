@@ -1,67 +1,182 @@
 <div class="container main-container">
-    <h3 class="card-title"> <strong>Cadastro de Empresa</strong></h3>
-    <form role="form">
+    <h3 class="card-title"> <strong>{{formLabel}}</strong></h3>
+    <div class="alert alert-danger" role="alert" *ngIf="msgsErro?.length">
+        <strong>Ops! Algo não deu certo.</strong>
+        <p *ngFor="let msg of msgsErro">{{msg}}</p>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="operationSuccess">
+        <strong>Muito bem!</strong>
+        <p>{{msgOperationSuccess}}</p>
+    </div>
+    <form [formGroup]="formCompany">
+        <input type="hidden" id="id" formControlName="id">
         <div class="form-group ">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-group">
+                    <div class="form-group" >
                         <label>Nome</label>
-                        <input type="text" class="form-control" id="nome">
+                        <input type="text" class="form-control" id="nome" formControlName="companyName"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('companyName').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('companyName').errors">
+                            <div *ngIf="formCompany.get('companyName').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('companyName').hasError('minlength')">
+                                Campo deve ter no minímo 3 caracteres
+                            </div>
+                            <div *ngIf="formCompany.get('companyName').hasError('maxlength')">
+                                Campo deve ter no maxímo 50 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group" >
+                        <label>Nome Fantasia</label>
+                        <input type="text" class="form-control" id="sobrenome" formControlName="fantasyName"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('fantasyName').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('fantasyName').errors">
+                            <div *ngIf="formCompany.get('fantasyName').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('fantasyName').hasError('minlength')">
+                                Campo deve ter no minímo 3 caracteres
+                            </div>
+                            <div *ngIf="formCompany.get('fantasyName').hasError('maxlength')">
+                                Campo deve ter no maxímo 50 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" formGroupName="document">
+                        <label>CNPJ</label>
+                        <input type="text" class="form-control" id="cnpj" formControlName="number"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('document').get('number').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('document').get('number').errors">
+                            <div *ngIf="formCompany.get('document').get('number').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('document').get('number').hasError('maxlength')">
+                                Campo deve ter no maxímo 11 números.
+                            </div>
+                            <div *ngIf="formCompany.get('document').get('number').hasError('pattern')">
+                                Campo deve somente números.
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Nome fantasia</label>
-                        <input type="text" class="form-control" id="nomeFantasia">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>CNPJ</label>
-                        <input type="text" class="form-control" id="cnpj">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
+                    <div class="form-group" formGroupName="email">
                         <label>Email</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" class="form-control" id="email" formControlName="address"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('email').get('address').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('email').get('address').errors">
+                            <div *ngIf="formCompany.get('email').get('address').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('email').get('address').hasError('email')">
+                                Campo deve ser um email válido.
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="form-group">
+                    <div class="form-group" formGroupName="address">
                         <label>Rua</label>
-                        <input type="text" class="form-control" id="rua">
+                        <input type="text" class="form-control" id="rua" formControlName="street"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('address').get('street').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('address').get('street').errors">
+                            <div *ngIf="formCompany.get('address').get('street').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('street').hasError('minlength')">
+                                Campo deve ter no minímo 3 caracteres
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('street').hasError('maxlength')">
+                                Campo deve ter no maxímo 50 caracteres
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group">
+                    <div class="form-group" formGroupName="address">
                         <label>Número</label>
-                        <input type="text" class="form-control" id="numero">
+                        <input type="text" class="form-control" id="numero" formControlName="number"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('address').get('number').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('address').get('number').errors">
+                            <div *ngIf="formCompany.get('address').get('number').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('number').hasError('pattern')">
+                                Campo deve ter somente números
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group">
+                    <div class="form-group" formGroupName="address">
                         <label>Bairro</label>
-                        <input type="text" class="form-control" id="bairro">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Cidade</label>
-                        <input type="text" class="form-control" id="cidade">
+                        <input type="text" class="form-control" id="bairro" formControlName="neighborhood"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('address').get('neighborhood').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('address').get('neighborhood').errors">
+                            <div *ngIf="formCompany.get('address').get('neighborhood').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('neighborhood').hasError('minlength')">
+                                Campo deve ter no minímo 3 caracteres
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('neighborhood').hasError('maxlength')">
+                                Campo deve ter no maxímo 50 caracteres
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group">
+                    <div class="form-group" formGroupName="address">
+                        <label>Cidade</label>
+                        <input type="text" class="form-control" id="cidade" formControlName="city"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('address').get('city').errors }">
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('address').get('city').errors">
+                            <div *ngIf="formCompany.get('address').get('city').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('city').hasError('minlength')">
+                                Campo deve ter no minímo 3 caracteres
+                            </div>
+                            <div *ngIf="formCompany.get('address').get('city').hasError('maxlength')">
+                                Campo deve ter no maxímo 50 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" formGroupName="address">
                         <label>Estado</label>
-                        <select class="browser-default custom-select">
-                            <option selected>Selecione</option>
+                        <select class="browser-default custom-select" formControlName="state"
+                            [ngClass]="{ 'is-invalid': submitted && formCompany.get('address').get('neighborhood').errors }">
                             <option value="SP">São Paulo</option>
                             <option value="PR">Paraná</option>
                             <option value="RJ">Rio de Janeiro</option>
                             <option value="MG">Minas Gerais</option>
                             <option value="MT">Mato Grosso</option>
-                          </select>
+                        </select>
+                        <div class="invalid-feedback"
+                            *ngIf="submitted && formCompany.get('address').get('neighborhood').errors">
+                            <div *ngIf="formCompany.get('address').get('neighborhood').hasError('required')">
+                                Campo obrigatório.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -69,45 +184,37 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-dark">Limpar</button>&nbsp;&nbsp;
-            <button type="submit" class="btn btn-dark">Salvar</button>
+            <button type="button" class="btn btn-dark" (click)="cancel()">Limpar</button>&nbsp;&nbsp;
+            <button type="submit" class="btn btn-dark" (click)="onSubmit()">Salvar</button>
         </div>
     </form>
     <br>
     <section>
         <div class="row">
-                <table class="table table-striped table-hover table-dark">
-                    <thead >
-                        <tr>
-                            <td>Id</td>
-                            <td>Nome</td>
-                            <td>Fantasia</td>
-                            <td>CNPJ</td>
-                            <td>Email</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>fornecedor.fornecedorId</td>
-                            <td> fornecedor.nome</td>
-                            <td> fornecedor.endereco</td>
-                            <td> fornecedor.contatoNome </td>
-                            <td> fornecedor.email </td>
-                            <td><button class="btn btn-light">Editar</button>&nbsp;&nbsp;<button
-                                    class="btn btn-light">Deletar</button></td>
-                        </tr>
-                        <tr>
-                            <td>fornecedor.fornecedorId</td>
-                            <td> fornecedor.nome</td>
-                            <td> fornecedor.endereco</td>
-                            <td> fornecedor.contatoNome </td>
-                            <td> fornecedor.email </td>
-                            <td><button class="btn btn-light">Editar</button>&nbsp;&nbsp;<button
-                                    class="btn btn-light">Deletar</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nome</td>
+                        <td>Fantasia</td>
+                        <td>CNPJ</td>
+                        <td>Email</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let company of companys; let i = index">
+                        <td>{{company.id}}</td>
+                        <td>{{company.companyName}}</td>
+                        <td>{{company.fantasyName}}</td>
+                        <td>{{company.document.number}}</td>
+                        <td>{{company.email.address}}</td>
+                        <td><button class="btn btn-light" (click)="edit(company)">Editar</button>&nbsp;&nbsp;<button
+                                class="btn btn-light" (click)="delete(company.id, i)">Deletar</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </section>
 </div>

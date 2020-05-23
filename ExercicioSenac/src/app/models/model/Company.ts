@@ -3,7 +3,7 @@ import { Name } from '../ValueObjects/Name';
 import { Email } from '../ValueObjects/Email';
 import { Address } from '../ValueObjects/Address';
 
-export class Employee {
+export class Company {
     id: number | null;
     companyName: string;
     fantasyName: string;
