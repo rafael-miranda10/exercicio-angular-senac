@@ -1,7 +1,7 @@
 <div class="container main-container">
     <h3 class="card-title"> <strong>{{formLabel}}</strong></h3>
     <div class="alert alert-danger" role="alert" *ngIf="msgsErro?.length">
-        <strong>Ops! Algo não deu certo.</strong>
+        <strong>Ops! Algo não deu certo :(</strong>
         <p *ngFor="let msg of msgsErro">{{msg}}</p>
     </div>
     <div class="alert alert-success" role="alert" *ngIf="operationSuccess">
@@ -209,7 +209,6 @@
                         <td><button class="btn btn-light" (click)="edit(company)">Editar</button>&nbsp;&nbsp;<button
                                 class="btn btn-light" (click)="delete(company.id, i)">Deletar</button></td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

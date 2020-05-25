@@ -44,4 +44,9 @@ export class CompanyService {
         return this.http.delete(url);
     }
 
+    registerEmployees(companyId: number, employeeIds: number[]): Observable<any> {
+        const url = `${this.api}Company/Register-Employee-Company`
+        return this.http.post(url, { "idCompany": companyId, "employees": employeeIds });
+    }
+
 }

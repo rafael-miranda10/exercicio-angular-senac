@@ -21,6 +21,16 @@ export class EmployeeService {
         return this.http.get<Employee[]>(url);
     }
 
+    GetAllEmployeeWithoutCompany(): Observable<Employee[]> {
+        const url = `${this.api}Employee/GetEmployees-Without-Company`
+        return this.http.get<Employee[]>(url);
+    }
+
+    GetAllEmployeeWithoutPosition(companyId: number): Observable<Employee[]> {
+        const url = `${this.api}Employee/GetEmployees-Without-Position/${companyId}`
+        return this.http.get<Employee[]>(url);
+    }
+
     getAllByDocument(document: string): Observable<Employee> {
         const url = `${this.api}Employee/GetByDocument/${document}`
         return this.http.get<Employee>(url);
