@@ -165,11 +165,8 @@
                         <label>Estado</label>
                         <select class="browser-default custom-select" formControlName="state"
                             [ngClass]="{ 'is-invalid': submitted && formEmployee.get('address').get('neighborhood').errors }">
-                            <option value="SP">São Paulo</option>
-                            <option value="PR">Paraná</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="MT">Mato Grosso</option>
+                            <option value="">Selecione</option>
+                            <option [ngValue]="state.id" *ngFor="let state of states">{{state.name}}
                         </select>
                         <div class="invalid-feedback"
                             *ngIf="submitted && formEmployee.get('address').get('neighborhood').errors">

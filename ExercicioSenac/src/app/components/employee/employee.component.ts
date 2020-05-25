@@ -19,6 +19,7 @@ export class EmployeeComponent implements OnInit {
   public submitted = false;
   public operationSuccess = false;
   public msgOperationSuccess: string = '';
+  public states: any[];
 
   constructor(private employeeService: EmployeeService) {
     this.formEmployee = new FormGroup({
@@ -46,12 +47,24 @@ export class EmployeeComponent implements OnInit {
     this.formLabel = "Cadastro de Funcionário";
     this.employee = new Employee();
     this.msgsErro = [];
+    this.states = [];
   }
 
   ngOnInit() {
     this.getAllEmployees();
+    this.initStates();
     this.operationSuccess = false;
     this.msgOperationSuccess = '';
+  }
+
+  initStates(){
+     this.states = [
+       {"id":"SP","name":"São Paulo"},
+       {"id":"RJ","name":"Rio de Janeiro"},
+       {"id":"PR","name":"Paraná"},
+       {"id":"MG","name":"Minas Gerais"},
+       {"id":"MT","name":"Mato Grosso"},
+      ];
   }
 
   isFormValid() {

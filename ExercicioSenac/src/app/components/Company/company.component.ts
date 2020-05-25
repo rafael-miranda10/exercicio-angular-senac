@@ -18,6 +18,7 @@ export class CompanyComponent implements OnInit {
   public submitted = false;
   public operationSuccess = false;
   public msgOperationSuccess: string = '';
+  public states: any[];
 
   constructor(private companyService: CompanyService) {
     this.formCompany = new FormGroup({
@@ -41,13 +42,25 @@ export class CompanyComponent implements OnInit {
     this.formLabel = "Cadastro de Empresa";
     this.company = new Company();
     this.msgsErro = [];
+    this.states = [];
   }
 
   ngOnInit() {
     this.getAllCompanys();
+    this.initStates();
     this.operationSuccess = false;
     this.msgOperationSuccess = '';
   }
+
+  initStates(){
+    this.states = [
+      {"id":"SP","name":"São Paulo"},
+      {"id":"RJ","name":"Rio de Janeiro"},
+      {"id":"PR","name":"Paraná"},
+      {"id":"MG","name":"Minas Gerais"},
+      {"id":"MT","name":"Mato Grosso"},
+     ];
+ }
 
   onSubmit() {
     this.submitted = true;

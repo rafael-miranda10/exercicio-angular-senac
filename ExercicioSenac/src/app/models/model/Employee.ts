@@ -4,6 +4,15 @@ import { Email } from '../ValueObjects/Email';
 import { Address } from '../ValueObjects/Address';
 
 export class Employee {
+
+    constructor() {
+        this.id = null;
+        this.address = new Address();
+        this.document = new Document();
+        this.email = new Email();
+        this.name = new Name();
+        this.registerCode = '';
+    }
     id: number | null;
     registerCode: string;
     address: Address;

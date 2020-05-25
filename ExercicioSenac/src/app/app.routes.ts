@@ -5,6 +5,7 @@ import { SobreComponent } from './components/institucional/sobre/sobre.component
 import { EmployeeComponent } from './components/employee/employee.component';
 import { CompanyComponent } from './components/Company/company.component';
 import { EmployeePositionComponent } from './components/EmployeePosition/employee-position.component';
+import { RegisterEmployeeComponent } from './components/RegisterEmployee/register-employee.component';
 
 
 export const rootRouterConfig: Routes = [
@@ -14,4 +15,5 @@ export const rootRouterConfig: Routes = [
     { path: 'funcionario', component: EmployeeComponent },
     { path: 'empresa', component: CompanyComponent },
     { path: 'cargo', component: EmployeePositionComponent },
+    { path: 'registro-funcionario', component: RegisterEmployeeComponent },
 ];

@@ -16,6 +16,10 @@ import { EmployeePositionComponent } from './components/EmployeePosition/employe
 
 import { rootRouterConfig } from './app.routes';
 import { EmployeeService } from './services/employee.service';
+import { RegisterEmployeeComponent } from './components/RegisterEmployee/register-employee.component';
+import { CompanyService } from './services/company.service';
+import { RegisterEmployeeService } from './services/register-employee.service';
+import { EmployeePositionService } from './services/employee-position.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import { EmployeeService } from './services/employee.service';
     SobreComponent,
     EmployeeComponent,
     CompanyComponent,
-    EmployeePositionComponent
+    EmployeePositionComponent,
+    RegisterEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,9 @@ import { EmployeeService } from './services/employee.service';
   ],
   providers: [
     EmployeeService,
+    CompanyService,
+    EmployeePositionService,
+    RegisterEmployeeService,
     { provide: APP_BASE_HREF, useValue: '/'}
   ],
   bootstrap: [AppComponent]
