@@ -1,3 +1,4 @@
+import { EmployeePosition } from './EmployeePosition';
 import { Document } from '../ValueObjects/Document';
 import { Name } from '../ValueObjects/Name';
 import { Email } from '../ValueObjects/Email';
@@ -12,6 +13,7 @@ export class Employee {
         this.email = new Email();
         this.name = new Name();
         this.registerCode = '';
+        this.EmployeePosition = new EmployeePosition();
     }
     id: number | null;
     registerCode: string;
@@ -19,4 +21,5 @@ export class Employee {
     email: Email;
     name: Name;
     document: Document;
+    EmployeePosition : EmployeePosition;
 }

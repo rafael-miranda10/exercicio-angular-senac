@@ -19,7 +19,7 @@ export class IncludeEmployeePositionComponent implements OnInit {
     public companys: Company[];
     public positions: EmployeePosition[];
     public employeesOfCompany: Employee[];
-    public employeesSelected: IncludeEmployee[];
+    public employeesSelected: Employee[];
     public formLabel: string;
     public msgsErro: string[];
     public disableBtnAdd = false;
@@ -67,27 +67,21 @@ export class IncludeEmployeePositionComponent implements OnInit {
             if (!this.validateIfExists(_idEmp)) {
                 var _employee = this.getEspecificEmployee(_idEmp);
                 var _position = this.getEspecificPosition(_idPos);
-                var _employeeSelected = new IncludeEmployee(_position.id, _employee.id, _employee.name.firstName, _employee.name.lastName, _employee.document.number, _position.description);
+                _employee.EmployeePosition = _position;
+                //var _employeeSelected = new IncludeEmployee(_position.id, _employee.id, _employee.name.firstName, _employee.name.lastName, _employee.document.number, _position.description);
 
-                this.employeesSelected.push(_employeeSelected);
+                this.employeesSelected.push(_employee);
                 this.sortEmployeesSelected();
                 this.formIncludeEmployee.get("idEmployee").setValue('');
                 this.formIncludeEmployee.get("idPosition").setValue('');
             }
         }
-
-
-
-        //var _teste1 = this.employeesSelected.map(function (item) {
-        //    return { "idEmployee": item.idEmployee, "idPosition": item.idPosition };
-        //});
-
     }
 
     validateIfExists(_id: number) {
         var exists = false;
         this.operationWarning = false;
-        var _employee = this.employeesSelected.filter(x => x.idEmployee === _id)[0];
+        var _employee = this.employeesSelected.filter(x => x.id === _id)[0];
         if (_employee) {
             this.operationWarning = true;
             this.msgWarning = 'O funcionário informado já existe na lista.';
@@ -95,6 +89,42 @@ export class IncludeEmployeePositionComponent implements OnInit {
         }
 
         return exists;
+    }
+
+    bindEmployeePosition() {
+        // var _listEmployees = this.employeesSelected.map(function (item) {
+        //    var _employee = new Employee();
+        //    _employee.id = item.idEmployee;
+        //    _employee.EmployeePosition.id = item.idPosition;
+        //    return _employee;
+        //return { "idEmployee": item.idEmployee, "idPosition": item.idPosition };
+        // });
+
+
+        //return { "idEmployee": item.idEmployee, "idPosition": item.idPosition };
+
+        this.employeePositionService
+            .IncludeEmployeePosition(this.employeesSelected)
+            .subscribe(
+                _employeesPositions => {
+                    this.msgOperationSuccess = 'Vínculo de funcionários realizado com sucesso.'
+                    this.operationSuccess = true;
+                    this.formIncludeEmployee.get("idCompany").setValue('');
+                    this.formIncludeEmployee.get("idEmployee").setValue('');
+                    this.formIncludeEmployee.get("idPosition").setValue('');
+                    this.employeesSelected = [];
+                    this.operationWarning = false;
+                    this.msgsErro = [];
+                    this.disableBtnAdd = false;
+                    this.positions = [];
+                    this.employeesOfCompany = [];
+                    
+                },
+                _error => {
+                    this.msgsErro = _error.error.errors.mensagens;
+                    this.getTopPage();
+                }
+            );
     }
 
     validateBeforAdd(_idPos, _idEmp) {
@@ -128,7 +158,7 @@ export class IncludeEmployeePositionComponent implements OnInit {
     }
 
     sortEmployeesSelected() {
-        this.employeesSelected.sort((a, b) => (a.firstName > b.firstName) ? 1 : -1);
+        this.employeesSelected.sort((a, b) => (a.name.firstName > b.name.firstName) ? 1 : -1);
     }
 
 

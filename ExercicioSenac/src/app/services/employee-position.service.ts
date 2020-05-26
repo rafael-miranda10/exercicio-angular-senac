@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Employee } from '../models/model/Employee';
 
 
 @Injectable({
@@ -33,6 +34,11 @@ export class EmployeePositionService {
     updateEmployee(employeePosition: EmployeePosition): Observable<any> {
         const url = `${this.api}EmployeePosition/Update`
         return this.http.put(url, employeePosition);
+    }
+
+    IncludeEmployeePosition(listEmployee: Employee[]): Observable<any> {
+        const url = `${this.api}EmployeePosition/Include-Employee-Position`
+        return this.http.post(url, listEmployee);
     }
 
     deleteEmployee(employeePositionId: number): Observable<any> {

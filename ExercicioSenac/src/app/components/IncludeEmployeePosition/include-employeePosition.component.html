@@ -78,7 +78,7 @@
                     <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" [disabled]="!disableBtnAdd" (click)="addEmployeeSelected()">Adicionar</button>
                 </div>
                 <div class="col-md-2">
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" [disabled]="!(employeesSelected.length > 0)" (click)="bindEmployeeCompany()">Vincular</button>
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" [disabled]="!(employeesSelected.length > 0)" (click)="bindEmployeePosition()">Vincular</button>
                 </div>
             </div>
         </div>
@@ -100,11 +100,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let employee of employeesSelected; let i = index">
-                        <td>{{employee.idEmployee}}</td>
-                        <td>{{employee.firstName}}</td>
-                        <td>{{employee.lastName}}</td>
-                        <td>{{employee.document}}</td>
-                        <td>{{employee.description}}</td>
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.name.firstName}}</td>
+                        <td>{{employee.name.lastName}}</td>
+                        <td>{{employee.document.number}}</td>
+                        <td>{{employee.EmployeePosition.description}}</td>
                         <td><button class="btn btn-light" (click)="deleteSelected(i)" >Deletar</button></td>
                     </tr>
                 </tbody>
