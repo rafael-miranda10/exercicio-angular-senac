@@ -15,6 +15,7 @@ export class ListingComponent implements OnInit {
 
     public formListing: FormGroup;
     public companys: Company[];
+    public company: Company;
     public formLabel: string;
     public msgsErro: string[];
     public operationSuccess = false;
@@ -23,18 +24,34 @@ export class ListingComponent implements OnInit {
     public missingEmployee = false;
     public operationWarning = false;
     public msgWarning: string = '';
-    public ListCompanyEmployees = [];
+    public Employees: Employee[];
 
     constructor(private companyService: CompanyService) {
         this.formListing = new FormGroup({
             idCompany: new FormControl('', []),
-            idEmployee: new FormControl('', []),
-          })
+        })
+
+        this.company = new Company();
+        this.Employees = [];
     }
 
     ngOnInit() {
         this.getAllCompanys();
 
+    }
+
+    searchCompany() {
+        var idCompany = this.formListing.get("idCompany").value;
+        this.companyService.getAllById(idCompany)
+            .subscribe(
+                _company => {
+                    this.company = _company;
+                    this.Employees = this.company.employees;
+                },
+                _error => {
+                    this.msgsErro = _error.error.errors.mensagens;
+                }
+            );
     }
 
     private getAllCompanys() {

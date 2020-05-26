@@ -1,3 +1,4 @@
+import { Employee } from 'src/app/models/model/Employee';
 import { Document } from '../ValueObjects/Document';
 import { Name } from '../ValueObjects/Name';
 import { Email } from '../ValueObjects/Email';
@@ -13,6 +14,7 @@ export class Company {
         this.name = new Name();
         this.companyName = '';
         this.fantasyName = '';
+        this.employees = [];
     }
 
     id: number | null;
@@ -22,4 +24,5 @@ export class Company {
     email: Email;
     name: Name;
     document: Document;
+    employees : Employee[];
 }

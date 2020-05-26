@@ -1,3 +1,4 @@
+import { Company } from './Company';
 import { EmployeePosition } from './EmployeePosition';
 import { Document } from '../ValueObjects/Document';
 import { Name } from '../ValueObjects/Name';
@@ -14,6 +15,7 @@ export class Employee {
         this.name = new Name();
         this.registerCode = '';
         this.EmployeePosition = new EmployeePosition();
+        this.Company = new Company();
     }
     id: number | null;
     registerCode: string;
@@ -22,4 +24,5 @@ export class Employee {
     name: Name;
     document: Document;
     EmployeePosition : EmployeePosition;
+    Company: Company
 }

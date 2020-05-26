@@ -26,7 +26,7 @@ export class CompanyService {
     }
 
     getAllById(companyId: number): Observable<Company> {
-        const url = `${this.api}Company/GetByDocument/${companyId}`
+        const url = `${this.api}Company/GetById?id=${companyId}`
         return this.http.get<Company>(url);
     }
 
