@@ -3,6 +3,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Company } from '../models/model/Company';
+import { RegisterEmployee } from '../models/model/RegisterEmployee';
 
 @Injectable({
     providedIn: 'root'
@@ -44,9 +45,9 @@ export class CompanyService {
         return this.http.delete(url);
     }
 
-    registerEmployees(companyId: number, employeeIds: number[]): Observable<any> {
+    registerEmployees(registerEmployee: RegisterEmployee): Observable<any> {
         const url = `${this.api}Company/Register-Employee-Company`
-        return this.http.post(url, { "idCompany": companyId, "employees": employeeIds });
+        return this.http.post(url, registerEmployee);
     }
 
 }

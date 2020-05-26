@@ -6,6 +6,9 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { CompanyComponent } from './components/Company/company.component';
 import { EmployeePositionComponent } from './components/EmployeePosition/employee-position.component';
 import { RegisterEmployeeComponent } from './components/RegisterEmployee/register-employee.component';
+import { ListingComponent } from './components/ListingCompanyEmployees/listing.component';
+import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePosition/include-employeePosition.component';
+
 
 
 export const rootRouterConfig: Routes = [
@@ -16,4 +19,6 @@ export const rootRouterConfig: Routes = [
     { path: 'empresa', component: CompanyComponent },
     { path: 'cargo', component: EmployeePositionComponent },
     { path: 'registro-funcionario', component: RegisterEmployeeComponent },
+    { path: 'cargo-funcionario', component: IncludeEmployeePositionComponent },
+    { path: 'listagem', component: ListingComponent },
 ];

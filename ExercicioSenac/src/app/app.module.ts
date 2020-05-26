@@ -20,6 +20,9 @@ import { RegisterEmployeeComponent } from './components/RegisterEmployee/registe
 import { CompanyService } from './services/company.service';
 import { RegisterEmployeeService } from './services/register-employee.service';
 import { EmployeePositionService } from './services/employee-position.service';
+import { ListingComponent } from './components/ListingCompanyEmployees/listing.component';
+import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePosition/include-employeePosition.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { EmployeePositionService } from './services/employee-position.service';
     CompanyComponent,
     EmployeePositionComponent,
     RegisterEmployeeComponent,
+    IncludeEmployeePositionComponent,
+    ListingComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@ export class EmployeeService {
     }
 
     GetAllEmployeeWithoutPosition(companyId: number): Observable<Employee[]> {
-        const url = `${this.api}Employee/GetEmployees-Without-Position/${companyId}`
+        const url = `${this.api}Employee/Without-Position?idCompany=${companyId}`
         return this.http.get<Employee[]>(url);
     }
 

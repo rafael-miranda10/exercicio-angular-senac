@@ -1,0 +1,68 @@
+<div class="container main-container">
+    <h3 class="card-title"> <strong>{{formLabel}}</strong></h3>
+    <div class="alert alert-danger" role="alert" *ngIf="msgsErro?.length">
+        <strong>Ops! Algo não deu certo :(</strong>
+        <p *ngFor="let msg of msgsErro">{{msg}}</p>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="operationSuccess">
+        <strong>Muito bem!</strong>
+        <p>{{msgOperationSuccess}}</p>
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="operationWarning">
+        <strong>Eita! Deu algum B.O ai...</strong>
+        <p>{{msgWarning}}</p>
+    </div>
+    <form [formGroup]="formListing">
+        <div class="form-group ">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <select class="browser-default custom-select" formControlName="idCompany"
+                        [ngClass]="{ 'is-invalid': missingCompany}">
+                            <option value="">Selecione</option>
+                            <option [ngValue]="company.id" *ngFor="let company of companys">{{company.fantasyName}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback"
+                            *ngIf="missingCompany">
+                            <div *ngIf="missingCompany">
+                                Campo obrigatório.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark"  >Vincular</button>
+                </div>
+            </div>
+            <br>
+            
+        </div>
+    </form>
+    <h3 class="card-title"> <strong>Funcionários Selecionados</strong></h3>
+    <section>
+        <div class="row">
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nome</td>
+                        <td>Sobrenome</td>
+                        <td>CPF</td>
+                        <td>Email</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of ListCompanyEmployees">
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.name.firstName}}</td>
+                        <td>{{employee.name.lastName}}</td>
+                        <td>{{employee.document.number}}</td>
+                        <td>{{employee.email.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

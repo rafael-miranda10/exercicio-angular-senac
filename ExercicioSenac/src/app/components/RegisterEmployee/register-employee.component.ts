@@ -1,3 +1,4 @@
+import { RegisterEmployee } from './../../models/model/RegisterEmployee';
 import { Employee } from './../../models/model/Employee';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
@@ -61,8 +62,10 @@ export class RegisterEmployeeComponent implements OnInit {
       idsEmployeeSelected[index] = _employee.id;
     });
 
+    var _registerEmployee = new RegisterEmployee(idCompany, idsEmployeeSelected);
+
     this.companyService
-      .registerEmployees(idCompany, idsEmployeeSelected)
+      .registerEmployees(_registerEmployee)
       .subscribe(
         response => {
           this.msgOperationSuccess = 'Vínculo de funcionários realizado com sucesso.'
@@ -103,7 +106,7 @@ export class RegisterEmployeeComponent implements OnInit {
 
   }
   deleteSelected(index: number) {
-    if (confirm("Deseja realmente excluir esta empresa?")) {
+    if (confirm("Deseja realmente excluir este funcionário?")) {
       this.employeesSelected.splice(index, 1);
       this.employeesSelected.sort((a, b) => (a.id > b.id) ? 1 : -1);
     }

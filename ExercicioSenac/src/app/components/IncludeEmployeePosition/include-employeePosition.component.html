@@ -1,0 +1,114 @@
+<div class="container main-container">
+    <h3 class="card-title"> <strong>{{formLabel}}</strong></h3>
+    <div class="alert alert-danger" role="alert" *ngIf="msgsErro?.length">
+        <strong>Ops! Algo não deu certo :(</strong>
+        <p *ngFor="let msg of msgsErro">{{msg}}</p>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="operationSuccess">
+        <strong>Muito bem!</strong>
+        <p>{{msgOperationSuccess}}</p>
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="operationWarning">
+        <strong>Eita! Deu algum B.O ai...</strong>
+        <p>{{msgWarning}}</p>
+    </div>
+    <form [formGroup]="formIncludeEmployee">
+        <div class="form-group ">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <select class="browser-default custom-select" formControlName="idCompany"
+                        [ngClass]="{ 'is-invalid': missingCompany}">
+                            <option value="">Selecione</option>
+                            <option [ngValue]="company.id" *ngFor="let company of companys">{{company.fantasyName}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback"
+                            *ngIf="missingCompany">
+                            <div *ngIf="missingCompany">
+                                Campo obrigatório.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" (click)="searchEmployees()">Pesquisar Funcionários</button>
+                </div>
+            </div>
+            <br>
+            <div class="row" >
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Cargos</label>
+                        <select class="browser-default custom-select" formControlName="idPosition"
+                        [ngClass]="{ 'is-invalid': missingPosition}">
+                            <option value="">Selecione</option>
+                            <option [ngValue]="position.id" *ngFor="let position of positions">
+                                {{position.description}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback"
+                            *ngIf="missingPosition">
+                            <div *ngIf="missingPosition">
+                                Campo obrigatório.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Funcionários da Empresa</label>
+                        <select class="browser-default custom-select" formControlName="idEmployee"
+                        [ngClass]="{ 'is-invalid': missingEmployee}">
+                            <option value="">Selecione</option>
+                            <option [ngValue]="employee.id" *ngFor="let employee of employeesOfCompany">
+                                {{"Nome: "+employee.name.firstName+" "+employee.name.lastName}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback"
+                            *ngIf="missingEmployee">
+                            <div *ngIf="missingEmployee">
+                                Campo obrigatório.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" [disabled]="!disableBtnAdd" (click)="addEmployeeSelected()">Adicionar</button>
+                </div>
+                <div class="col-md-2">
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-dark" [disabled]="!(employeesSelected.length > 0)" (click)="bindEmployeeCompany()">Vincular</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <h3 class="card-title"> <strong>Funcionários Selecionados</strong></h3>
+    
+    <section>
+        <div class="row">
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nome</td>
+                        <td>Sobrenome</td>
+                        <td>CPF</td>
+                        <td>Cargo</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeesSelected; let i = index">
+                        <td>{{employee.idEmployee}}</td>
+                        <td>{{employee.firstName}}</td>
+                        <td>{{employee.lastName}}</td>
+                        <td>{{employee.document}}</td>
+                        <td>{{employee.description}}</td>
+                        <td><button class="btn btn-light" (click)="deleteSelected(i)" >Deletar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
