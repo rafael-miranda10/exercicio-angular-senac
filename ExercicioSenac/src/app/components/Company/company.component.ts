@@ -141,6 +141,8 @@ export class CompanyComponent implements OnInit {
   }
 
   cancel() {
+    this.submitted = false;
+    this.formCompany.clearValidators();
     this.formLabel = "Cadastro de Empresa";
     this.isEditMode = false;
     this.company = new Company();
@@ -164,6 +166,8 @@ export class CompanyComponent implements OnInit {
   }
 
   edit(_company: Company) {
+    this.submitted = false;
+    this.operationSuccess = false;
     this.formLabel = "Edição de Empresa";
     this.msgOperationSuccess = '';
     this.isEditMode = true;

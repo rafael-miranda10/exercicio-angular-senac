@@ -131,6 +131,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   cancel() {
+    this.submitted = false;
+    this.formEmployee.clearValidators();
     this.formLabel = "Cadastro de Funcionário";
     this.isEditMode = false;
     this.employee = new Employee();
@@ -157,6 +159,7 @@ export class EmployeeComponent implements OnInit {
 
   edit(_employee: Employee) {
     this.formLabel = "Edição de Funcionário";
+    this.operationSuccess = false;
     this.msgOperationSuccess = '';
     this.isEditMode = true;
     this.employee = _employee;

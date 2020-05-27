@@ -48,6 +48,8 @@ export class EmployeePositionComponent implements OnInit {
   }
 
   cancel() {
+    this.submitted = false;
+    this.formEmployeePosition.clearValidators();
     this.formLabel = "Cadastro de Cargo";
     this.isEditMode = false;
     this.employeePosition = new EmployeePosition();
