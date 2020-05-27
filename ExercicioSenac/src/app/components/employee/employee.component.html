@@ -53,7 +53,7 @@
                 <div class="col-md-2">
                     <div class="form-group" formGroupName="document">
                         <label>CPF</label>
-                        <input type="text" class="form-control" id="cpf" formControlName="number"
+                        <input type="text" class="form-control" id="cpf" formControlName="number" mask="000.000.000-009"
                             [ngClass]="{ 'is-invalid': submitted && formEmployee.get('document').get('number').errors }">
                         <div class="invalid-feedback"
                             *ngIf="submitted && formEmployee.get('document').get('number').errors">
@@ -211,7 +211,7 @@
                         <td>{{employee.id}}</td>
                         <td>{{employee.name.firstName}}</td>
                         <td>{{employee.name.lastName}}</td>
-                        <td>{{employee.document.number}}</td>
+                        <td>{{employee.document.number | CPF}}</td>
                         <td>{{employee.email.address}}</td>
                         <td><button class="btn btn-light" (click)="edit(employee)">Editar</button>&nbsp;&nbsp;<button
                                 class="btn btn-light" (click)="delete(employee.id, i)">Deletar</button></td>

@@ -23,6 +23,13 @@ import { EmployeePositionService } from './services/employee-position.service';
 import { ListingComponent } from './components/ListingCompanyEmployees/listing.component';
 import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePosition/include-employeePosition.component';
 
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { CPFPipe } from './pipe/cpf.pipe';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 
 @NgModule({
   declarations: [
@@ -37,11 +44,13 @@ import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePo
     RegisterEmployeeComponent,
     IncludeEmployeePositionComponent,
     ListingComponent,
+    CPFPipe,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    [NgxMaskModule.forRoot(maskConfig)],
     [RouterModule.forRoot(rootRouterConfig,{ useHash:false})]
   ],
   providers: [
