@@ -13,7 +13,7 @@
         <div class="form-group ">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label>Descrição</label>
                         <input type="text" class="form-control" id="descricao" formControlName="description"
                             [ngClass]="{ 'is-invalid': submitted && formEmployeePosition.get('description').errors }">
@@ -32,23 +32,21 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label>Salário</label>
-                        <input type="text" class="form-control" id="sobrenome" formControlName="salary"
+                        <input type="text" class="form-control" id="sobrenome" formControlName="salary" currencyMask
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                             [ngClass]="{ 'is-invalid': submitted && formEmployeePosition.get('salary').errors }">
-                        <div class="invalid-feedback"
-                            *ngIf="submitted && formEmployeePosition.get('salary').errors">
+                        <div class="invalid-feedback" *ngIf="submitted && formEmployeePosition.get('salary').errors">
                             <div *ngIf="formEmployeePosition.get('salary').hasError('required')">
                                 Campo obrigatório.
                             </div>
-                            <div *ngIf="formEmployeePosition.get('salary').hasError('pattern')">
-                                Campo deve ter apenas números
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label>Núemre de Referência</label>
                         <input type="text" class="form-control" id="cnpj" formControlName="referenceNumber"
                             [ngClass]="{ 'is-invalid': submitted && formEmployeePosition.get('referenceNumber').errors }">
@@ -90,9 +88,10 @@
                     <tr *ngFor="let employeePosition of employeePositions; let i = index">
                         <td>{{employeePosition.id}}</td>
                         <td>{{employeePosition.description}}</td>
-                        <td>{{employeePosition.salary}}</td>
+                        <td>{{employeePosition.salary | REAL }}</td>
                         <td>{{employeePosition.referenceNumber}}</td>
-                        <td><button class="btn btn-light" (click)="edit(employeePosition)">Editar</button>&nbsp;&nbsp;<button
+                        <td><button class="btn btn-light"
+                                (click)="edit(employeePosition)">Editar</button>&nbsp;&nbsp;<button
                                 class="btn btn-light" (click)="delete(employeePosition.id, i)">Deletar</button></td>
                     </tr>
 

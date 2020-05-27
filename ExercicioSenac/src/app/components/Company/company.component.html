@@ -53,7 +53,7 @@
                 <div class="col-md-2">
                     <div class="form-group" formGroupName="document">
                         <label>CNPJ</label>
-                        <input type="text" class="form-control" id="cnpj" formControlName="number"
+                        <input type="text" class="form-control" id="cnpj" formControlName="number" mask="00.000.000/0000-09"
                             [ngClass]="{ 'is-invalid': submitted && formCompany.get('document').get('number').errors }">
                         <div class="invalid-feedback"
                             *ngIf="submitted && formCompany.get('document').get('number').errors">
@@ -204,7 +204,7 @@
                         <td>{{company.id}}</td>
                         <td>{{company.companyName}}</td>
                         <td>{{company.fantasyName}}</td>
-                        <td>{{company.document.number}}</td>
+                        <td>{{company.document.number | CNPJ}}</td>
                         <td>{{company.email.address}}</td>
                         <td><button class="btn btn-light" (click)="edit(company)">Editar</button>&nbsp;&nbsp;<button
                                 class="btn btn-light" (click)="delete(company.id, i)">Deletar</button></td>

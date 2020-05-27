@@ -24,10 +24,29 @@ import { ListingComponent } from './components/ListingCompanyEmployees/listing.c
 import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePosition/include-employeePosition.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from "ngx-currency";
 import { CPFPipe } from './pipe/cpf.pipe';
+import { CNPJPipe } from './pipe/cnpj.pipe';
+import { REALPipe } from './pipe/real.pipe';
+
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
+};
+
+export const customCurrencyMaskConfig = {
+  align: "right",
+  allowNegative: true,
+  allowZero: true,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: ".",
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
 };
 
 
@@ -45,11 +64,15 @@ const maskConfig: Partial<IConfig> = {
     IncludeEmployeePositionComponent,
     ListingComponent,
     CPFPipe,
+    CNPJPipe,
+    REALPipe,
+    
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    [NgxCurrencyModule.forRoot(customCurrencyMaskConfig)],
     [NgxMaskModule.forRoot(maskConfig)],
     [RouterModule.forRoot(rootRouterConfig,{ useHash:false})]
   ],
@@ -58,7 +81,7 @@ const maskConfig: Partial<IConfig> = {
     CompanyService,
     EmployeePositionService,
     RegisterEmployeeService,
-    { provide: APP_BASE_HREF, useValue: '/'}
+    { provide: APP_BASE_HREF, useValue: '/'},
   ],
   bootstrap: [AppComponent]
 })

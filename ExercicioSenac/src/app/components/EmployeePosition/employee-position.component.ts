@@ -22,7 +22,7 @@ export class EmployeePositionComponent implements OnInit {
   constructor(private employeePositionService: EmployeePositionService) {
     this.formEmployeePosition = new FormGroup({
       description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-      salary: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$")]),
+      salary: new FormControl('', [Validators.required]),
       referenceNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*[1-9][0-9]*$")]),
       id: new FormControl(''),
     })
