@@ -20,6 +20,7 @@ export class EmployeeComponent implements OnInit {
   public operationSuccess = false;
   public msgOperationSuccess: string = '';
   public states: any[];
+   public actualPage = 1;  // Dizemos que queremos que o componente quando carregar, inicialize na página 1.
 
   constructor(private employeeService: EmployeeService) {
     this.formEmployee = new FormGroup({

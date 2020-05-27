@@ -207,7 +207,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let employee of employees; let i = index">
+                    <tr
+                        *ngFor="let employee of employees | paginate: { itemsPerPage: 5, currentPage: actualPage }; let i = index">
                         <td>{{employee.id}}</td>
                         <td>{{employee.name.firstName}}</td>
                         <td>{{employee.name.lastName}}</td>
@@ -216,9 +217,12 @@
                         <td><button class="btn btn-light" (click)="edit(employee)">Editar</button>&nbsp;&nbsp;<button
                                 class="btn btn-light" (click)="delete(employee.id, i)">Deletar</button></td>
                     </tr>
-
                 </tbody>
             </table>
+        </div>
+        <div class="text-right">
+            <pagination-controls (pageChange)="actualPage = $event" previousLabel="Anterior" nextLabel="Próximo">
+            </pagination-controls>
         </div>
     </section>
 </div>

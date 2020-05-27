@@ -25,6 +25,7 @@ import { IncludeEmployeePositionComponent } from './components/IncludeEmployeePo
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from "ngx-currency";
+import { NgxPaginationModule } from 'ngx-pagination'; // Módulo da dependência de paginação
 import { CPFPipe } from './pipe/cpf.pipe';
 import { CNPJPipe } from './pipe/cnpj.pipe';
 import { REALPipe } from './pipe/real.pipe';
@@ -72,6 +73,7 @@ export const customCurrencyMaskConfig = {
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     [NgxCurrencyModule.forRoot(customCurrencyMaskConfig)],
     [NgxMaskModule.forRoot(maskConfig)],
     [RouterModule.forRoot(rootRouterConfig,{ useHash:false})]
